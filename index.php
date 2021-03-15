@@ -1,47 +1,22 @@
-<?php
-include 'dbTable.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+<header>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
-    <title></title>
-  </head>
-  <body>
-    <div class="container">
-      <select>
-        <option>recente</option>
-        <option>meno recente</option>
-      </select>
-      <?php if ( $order->num_rows > 0 ) { ?>
-        <table>
-          <tr>
-            <th>Nome</th>
-            <th>Data</th>
-          </tr>
-      <?php $i = 0;
-       while($row = $order->fetch_assoc()) {
-
-        if ( $i < 5 ) { ?>
-          <tr>
-            <td>
-              <!-- <?php echo 'Nome:' . ' ' . $row['nome']; ?> -->
-              <?php echo $row['nome']; ?>
-            </td>
-            <td>
-              <?php echo $row['data']; ?>
-            </td>
-          </tr>
-        <?php  }?>
-      <?php  $i++; } ?>
-        </table>
-      <?php } else {
-        'Nessun risultato';
-            }
-      ?>
-    </div>
-
-  </body>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <title>Ordini libreria</title>
+</header>
+<body>
+<div class="container">
+    <select id="order">
+        <option value="desc">recente</option>
+        <option value="asc">meno recente</option>
+    </select>
+    <div id="table_container"></div>
+</div>
+<script type="text/javascript" src="js/script.js"></script>
+</body>
 </html>
