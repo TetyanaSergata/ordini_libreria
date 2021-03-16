@@ -23,5 +23,6 @@ $result = array();
 while ($row = $order->fetch_assoc()) {
     $result[] = $row;
 }
+//Encode an array into a JSON object
 echo json_encode($result);
 

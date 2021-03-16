@@ -1,3 +1,4 @@
+// Show default results after the page has been loaded
 $(document).ready(function () {
     let data = "desc";
     $.ajax({
@@ -9,7 +10,7 @@ $(document).ready(function () {
         }
     });
 });
-
+// On option changes from the select show required results (desc or asc)
 $("#order").change(function (e) {
     e.preventDefault();
     let data = $(this).val();
@@ -22,52 +23,47 @@ $("#order").change(function (e) {
         }
     });
 });
-
-
+// Function that create and fill the table
 function createTable(data) {
-    // (B) PARSE THE JSON STRING INTO OBJECT FIRST
-    data = JSON.parse(data);
+    // Parse the json string into the object
+    data_obj = JSON.parse(data);
 
     document.getElementById("table_container").innerHTML = '';
-    // (C1) CREATE EMPTY TABLE
-    // (C) GENERATE TABLE
-    var table = document.createElement("table"), rowH, headerA, headerB,
-        headerC, row, cellA, cellB, cellC;
+
+    // Creation of the table
+    var table = document.createElement("table"), rowH, headerA,
+        headerB, row, cellA, cellB;
 
     rowH = document.createElement("tr");
     headerA = document.createElement("th");
     headerB = document.createElement("th");
-    headerC = document.createElement("th");
 
-    headerA.innerHTML = "ID";
-    headerB.innerHTML = "nome";
-    headerC.innerHTML = "data";
+    headerA.innerHTML = "nome";
+    headerB.innerHTML = "data";
 
     table.appendChild(rowH);
     rowH.appendChild(headerA);
     rowH.appendChild(headerB);
-    rowH.appendChild(headerC);
 
+    // Append the table inside parent container
     document.getElementById("table_container").appendChild(table);
-    for (let key in data) {
-        // ROWS & CELLS
+
+    for (let key in data_obj) {
+        // Create rows and cells with For loop
         row = document.createElement("tr");
         cellA = document.createElement("td");
         cellB = document.createElement("td");
-        cellC = document.createElement("td");
 
-        dataTime = new Date(data[key].data);
+        dataTime = new Date(data_obj[key].data);
 
+        // Fill with data
+        cellA.innerHTML = data_obj[key].nome;
+        // Setting european format date
+        cellB.innerHTML = dataTime.toLocaleDateString();
 
-        // KEY & VALUE
-        cellA.innerHTML = key;
-        cellB.innerHTML = data[key].nome;
-        cellC.innerHTML = dataTime.toLocaleDateString();
-
-        // ATTACH ROW & CELLS
+        // Append rows and cells
         table.appendChild(row);
         row.appendChild(cellA);
         row.appendChild(cellB);
-        row.appendChild(cellC);
     }
 }
